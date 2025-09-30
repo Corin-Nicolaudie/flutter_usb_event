@@ -29,7 +29,7 @@ class FlutterUsbEvent {
 
         // Appeler la méthode native pour commencer à écouter
         try {
-            if (Platform.isWindows || Platform.isMacOS) {
+            if (Platform.isWindows || Platform.isMacOS || Platform.isAndroid) {
                 await _channel.invokeMethod('startListening');
             } else {
                 print("La plateforme actuelle n'est pas supportée pour l'écoute USB.");
@@ -42,7 +42,7 @@ class FlutterUsbEvent {
     /// Fonction pour arrêter l'écoute des événements USB.
     static Future<void> stopListening() async {
         try {
-            if (Platform.isWindows || Platform.isMacOS) {
+            if (Platform.isWindows || Platform.isMacOS || Platform.isAndroid) {
                 await _channel.invokeMethod('stopListening');
             }
             await _channel.invokeMethod('stopListening');

@@ -9,6 +9,7 @@
 #include <usbioctl.h>
 #include <setupapi.h>
 #include <winusb.h>
+#include <algorithm>
 #include <memory>
 #include <sstream>
 #include <vector>
@@ -92,8 +93,11 @@ std::string GetDevicePathUsingWinUsb(const std::string& device_path) {
 
 // Function to check if the device is a USB device based on its path
 bool IsUsbDevice(const std::string& device_path) {
-    // Check if the device path contains "USB#VID" which is typical for USB devices
-    return device_path.find("USB#VID") != std::string::npos;
+    // Check if the device path contains "USB#VID", matched case-insensitively since
+    // Windows reports dbcc_name casing differently depending on the device's driver
+    std::string upper_path = device_path;
+    std::transform(upper_path.begin(), upper_path.end(), upper_path.begin(), ::toupper);
+    return upper_path.find("USB#VID") != std::string::npos;
 }
 
 namespace flutter_usb_event {

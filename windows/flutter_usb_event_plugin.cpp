@@ -96,7 +96,8 @@ bool IsUsbDevice(const std::string& device_path) {
     // Check if the device path contains "USB#VID", matched case-insensitively since
     // Windows reports dbcc_name casing differently depending on the device's driver
     std::string upper_path = device_path;
-    std::transform(upper_path.begin(), upper_path.end(), upper_path.begin(), ::toupper);
+    std::transform(upper_path.begin(), upper_path.end(), upper_path.begin(),
+        [](unsigned char c) { return static_cast<char>(::toupper(c)); });
     return upper_path.find("USB#VID") != std::string::npos;
 }
 

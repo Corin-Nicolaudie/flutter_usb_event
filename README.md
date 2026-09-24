@@ -9,6 +9,7 @@
 - Listen for USB device connection events.
 - Listen for USB device disconnection events.
 - Compatible with macOS and Windows.
+- Linux support reports serial (`tty`) devices only, via libudev. Building requires `libudev-dev` (Debian/Ubuntu) or `systemd-devel` (Fedora).
 
 ## Installation
 
